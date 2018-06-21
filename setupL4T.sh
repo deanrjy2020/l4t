@@ -40,27 +40,27 @@ function mount_host ()
     echo "uncomment the user_allow_other"
     sudo gedit /etc/fuse.conf
 
-    mkdir mount
+    mkdir ~/mount
 
     #read -p "input the IP and code path"
-    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T mount
+    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
 
     echo "mounting host done..."
 }
 
-read -p "first time setting up after flashing? 0 or 1" FIRST_TIME
-read -p "mount the host source code? 0 or 1" MOUNT_HOST
+read -p "first time setting up after flashing? 0 or 1: " FIRST_TIME
+read -p "mount the host source code? 0 or 1: " MOUNT_HOST
 
-if [ $FIRST_TIME == "1"]
+if [ $FIRST_TIME == "1" ]
 then
     first_time_setup
 else
-    echo "skip first time setting up., "
+    echo "skip first time setting up."
 fi
 
-if [ $MOUNT_HOST == "1"]
+if [ $MOUNT_HOST == "1" ]
 then
     mount_host
 else
-    echo "skip mountng host., "
+    echo "skip mountng host."
 fi
