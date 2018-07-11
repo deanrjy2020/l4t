@@ -19,13 +19,13 @@ function first_time_setup ()
     echo "5, save the driver version and backup the original lib..."
     echo "5.1, check the dirver version..."
     (cd /usr/lib/aarch64-linux-gnu/tegra ; ls -l libnvidia-* )
-    read -p "5.2, input the driver version: " L4T_DRIVER_VERSION
-    echo $L4T_DRIVER_VERSION > /home/nvidia/driver_version.txt
+    read -p "5.2, input the driver version, e.g. 415.00: " L4T_DRIVER_VERSION
+    echo $L4T_DRIVER_VERSION > ~/driver_version.txt
     echo "5.3, dirver version saved..."
 
     echo "5.4, backup the dirver version..."
-    mkdir /home/nvidia/driver_backup
-    sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* /home/nvidia/driver_backup/.
+    mkdir ~/driver_backup
+    sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* ~/driver_backup/.
 
     echo "first time setup done."
 }
@@ -37,13 +37,15 @@ function mount_host ()
     sudo apt update
     sudo apt install git sshfs -y
     sudo chmod a+r /etc/fuse.conf
-    echo "uncomment the user_allow_other"
+    echo "uncomment the 'user_allow_other' "
     sudo gedit /etc/fuse.conf
 
     mkdir ~/mount
 
-    #read -p "input the IP and code path"
-    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
+    # the user name will always be 'jiayuanr'
+    read -p "input the IP and code path" CODE_HOST_IP
+    #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
+    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/code/deva_L4T ~/mount
 
     echo "mounting host done..."
 }
