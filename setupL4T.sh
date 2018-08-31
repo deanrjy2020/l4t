@@ -40,18 +40,33 @@ function mount_host ()
     echo "uncomment the 'user_allow_other' "
     sudo gedit /etc/fuse.conf
 
+    # the local folder name.
     mkdir ~/mount
 
-    # the user name will always be 'jiayuanr'
-    read -p "input the IP and code path" CODE_HOST_IP
+	# the user name will always be 'jiayuanr'
+    read -p "input the IP of the host: " CODE_HOST_IP
     #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
-    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/code/deva_L4T ~/mount
+    sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@${CODE_HOST_IP}:${CODE_PATH} ~/mount
 
     echo "mounting host done..."
 }
 
+function install_qtcreator ()
+{
+	echo "installing qtcreator..."
+    sudo apt update
+    sudo apt install qtcreator
+
+    # we need this script for qtcreator debug.
+	echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
+
+    echo "installing qtcreator done..."
+}
+
 read -p "first time setting up after flashing? 0 or 1: " FIRST_TIME
 read -p "mount the host source code? 0 or 1: " MOUNT_HOST
+read -p "need qt creator? 0 or 1: " QT_CREATOR
+read -p "input the code path, e.g. /home/jiayuanr/code/deva_L4T : " CODE_PATH
 
 if [ $FIRST_TIME == "1" ]
 then
@@ -65,4 +80,13 @@ then
     mount_host
 else
     echo "skip mountng host."
+fi
+
+if [ $FIRST_TIME == "1" ]
+then
+	# if you mount the source code, probably need qtcreator.
+    # takes ~20 min
+    install_qtcreator
+else
+    echo "skip installing qt creator."
 fi
