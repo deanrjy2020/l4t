@@ -33,18 +33,20 @@ function first_time_setup ()
 function mount_host ()
 {
     echo "mounting host..."
-    sudo dhclient # access the internet
-    sudo apt update
-    sudo apt install git sshfs -y
+
+    # the user name will always be 'jiayuanr'
+    read -p "input the IP of the host: " CODE_HOST_IP
     sudo chmod a+r /etc/fuse.conf
     echo "uncomment the 'user_allow_other' "
     sudo gedit /etc/fuse.conf
 
+    # after this point, all you need to do is waiting.
+    sudo dhclient # access the internet
+    sudo apt update
+    sudo apt install git sshfs -y
+
     # the local folder name.
     mkdir ~/mount
-
-	# the user name will always be 'jiayuanr'
-    read -p "input the IP of the host: " CODE_HOST_IP
     #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
     sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@${CODE_HOST_IP}:${CODE_PATH} ~/mount
 
