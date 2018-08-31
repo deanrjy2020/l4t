@@ -6,7 +6,7 @@ RED='\033[1;31m'
 NC='\033[0m' #no color
 
 function ECHO () {
-    echo -e ${GREEN}$*
+    echo -e ${GREEN}$*${NC}
 }
 
 function first_time_setup () 
