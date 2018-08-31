@@ -29,7 +29,7 @@ function first_time_setup ()
     ECHO "5.1, check the dirver version..."
     (cd /usr/lib/aarch64-linux-gnu/tegra ; ls -l libnvidia-* )
     read -p "5.2, input the driver version, e.g. 415.00: " L4T_DRIVER_VERSION
-    ECHO $L4T_DRIVER_VERSION > ~/driver_version.txt
+    echo $L4T_DRIVER_VERSION > ~/driver_version.txt
     ECHO "5.3, dirver version saved..."
 
     ECHO "5.4, backup the dirver version..."
