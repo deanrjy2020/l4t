@@ -57,7 +57,7 @@ function install_qtcreator ()
 {
 	echo "installing qtcreator..."
     sudo apt update
-    sudo apt install qtcreator
+    sudo apt install qtcreator -y
 
     # we need this script for qtcreator debug.
 	echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
