@@ -10,9 +10,8 @@ function ECHO_G () {
 }
 
 function backup_as_needed () {
-	
 	# qt creator info
-	scp /home/nvidia/.config/QtProject/qtcreator/*.qws jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/.
+	scp /home/nvidia/.config/QtProject/qtcreator/*.qws jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/
 }
 
 read -p "input the IP of the host: " CODE_HOST_IP

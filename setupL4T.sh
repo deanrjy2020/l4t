@@ -77,7 +77,7 @@ function install_qtcreator ()
     sleep 1 s
 
     ECHO_G "scp the qt creator qws files to device..."
-    jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/.
+    scp jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/
 
     ECHO_G "installing qtcreator done..."
 }
