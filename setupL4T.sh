@@ -49,7 +49,7 @@ function mount_host ()
     ECHO_G "uncomment the 'user_allow_other' "
     sudo gedit /etc/fuse.conf
 
-    # after this point, all you need to do is waiting.
+    ECHO_G "after this point, all you need to do is waiting."
     sudo dhclient # access the internet
     sudo apt update
     sudo apt install git sshfs -y
@@ -65,18 +65,16 @@ function mount_host ()
 function install_qtcreator ()
 {
 	ECHO_G "installing qtcreator..."
-    sudo apt update
-    sudo apt install qtcreator -y
-
     # we need this script for qtcreator debug.
 	echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
 
+    sudo apt update
+    sudo apt install qtcreator -y
     ECHO_G "installing qtcreator done..."
 }
 
 read -p "first time setting up after flashing? 0 or 1: " FIRST_TIME
 read -p "mount the host source code? 0 or 1: " MOUNT_HOST
-read -p "need qt creator? 0 or 1: " QT_CREATOR
 read -p "input the code path, e.g. /home/jiayuanr/code/deva_L4T : " CODE_PATH
 
 if [ $FIRST_TIME == "1" ]
@@ -93,11 +91,8 @@ else
     ECHO_G "skip mountng host."
 fi
 
-if [ $FIRST_TIME == "1" ]
-then
-	# if you mount the source code, probably need qtcreator.
-    # takes ~20 min
-    install_qtcreator
-else
-    ECHO_G "skip installing qt creator."
-fi
+ECHO_G "Always install qt creator, feel free to cancel if you don't need it."
+# if you mount the source code, probably need qtcreator.
+# takes ~20 min
+install_qtcreator
+
