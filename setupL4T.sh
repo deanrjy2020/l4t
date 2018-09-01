@@ -70,6 +70,15 @@ function install_qtcreator ()
 
     sudo apt update
     sudo apt install qtcreator -y
+
+    sleep 1 s
+    # launch qt creator
+    qtcreator
+    sleep 1 s
+
+    ECHO_G "scp the qt creator qws files to device..."
+    jiayuanr@${CODE_HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/.
+
     ECHO_G "installing qtcreator done..."
 }
 
