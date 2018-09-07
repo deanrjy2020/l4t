@@ -6,15 +6,15 @@ RED='\033[1;31m'
 NC='\033[0m' #no color
 
 function ECHO_G () {
-    echo -e ${GREEN}$*${NC}
+	echo -e ${GREEN}$*${NC}
 }
 
 function first_time_setup () 
 {
-    ECHO_G "1, setup the display, do it manually..."
+	ECHO_G "1, setup the display, do it manually..."
 
-    ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
-    sudo gedit /etc/ssh/sshd_config
+	ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
+	sudo gedit /etc/ssh/sshd_config
     # #PermitRootLogin prohibit-password
     # PermitRootLogin yes
 
@@ -84,10 +84,12 @@ function install_qtcreator ()
 
 read -p "first time setting up after flashing? 0 or 1: " FIRST_TIME
 read -p "mount the host source code? 0 or 1: " MOUNT_HOST
+read -p "install qt creator? 0 or 1: " INSTALL_QT
 read -p "input the code path, e.g. /home/jiayuanr/code/deva_L4T : " CODE_PATH
 
 if [ $FIRST_TIME == "1" ]
 then
+	# need this after flashing the device.
     first_time_setup
 else
     ECHO_G "skip first time setting up."
@@ -95,13 +97,20 @@ fi
 
 if [ $MOUNT_HOST == "1" ]
 then
+	# need this after reboot.
     mount_host
 else
     ECHO_G "skip mountng host."
 fi
 
-ECHO_G "Always install qt creator, feel free to cancel if you don't need it."
-# if you mount the source code, probably need qtcreator.
-# takes ~20 min
-install_qtcreator
+if [ $INSTALL_QT == "1" ]
+then
+	# if you mount the source code, probably need qtcreator.
+	# takes 10~20 min
+	install_qtcreator
+else
+    ECHO_G "skip installing qt creator."
+fi
+
+
 
