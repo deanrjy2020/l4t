@@ -28,10 +28,7 @@ function dean_setup_l4t () {
     sudo passwd root
     systemctl restart sshd
 
-    ECHO_G "4, install something..."
-	sudo apt update    
-	sudo dhclient # access the internet
-    sudo apt install sshfs -y # for mount the code.
+	# no step 4.
 
     ECHO_G "5, save the driver version and backup the original lib..."
     ECHO_G "5.1, check the dirver version..."
@@ -45,10 +42,15 @@ function dean_setup_l4t () {
     sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* ~/driver_backup/.
 
 	# this is for ssh. scp still needs the passwd.
-	ECHO_G "ssh key setup..."
+	ECHO_G "6, ssh key setup..."
 	ssh-keygen
 	# on your host, you also need to do "chmod 700 ~/.ssh/authorized_keys"
 	cat ~/.ssh/id_rsa.pub | ssh ${HOST_NAME}@${HOST_IP} 'cat >> .ssh/authorized_keys'
+
+	ECHO_G "7, install something..."
+	sudo apt update
+	sudo dhclient # access the internet
+	sudo apt install sshfs -y # for mount the code.
 
     ECHO_G "first time setup done."
 }
@@ -98,7 +100,7 @@ function dean_install_qtcreator () {
 # after flashing the device.
 # source l4t/setupL4T.sh ; dean_source
 function dean_source () {
-	echo 'source /home/nvidia/l4t/setupL4T.sh' | sudo tee -a /home/nvidia/.bashrc
+	echo 'source /home/nvidia/l4t/setupL4T.sh' | tee -a /home/nvidia/.bashrc
 }
 
 
