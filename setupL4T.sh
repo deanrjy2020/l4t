@@ -16,7 +16,13 @@ export CODE_PATH=/home/jiayuanr/code/deva_L4T
 
 # need this after flashing the device.
 function dean_setup_l4t () {
+	ECHO_G "******************************************"
+	ECHO_G "******************************************"
+	ECHO_G ""
 	ECHO_G "1, setup the display, do it manually..."
+	ECHO_G ""
+	ECHO_G "******************************************"
+	ECHO_G "******************************************"
 
 	ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
 	#sudo gedit /etc/ssh/sshd_config
