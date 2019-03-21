@@ -6,7 +6,7 @@ RED='\033[1;31m'
 NC='\033[0m' #no color
 
 function ECHO_G () {
-	echo -e ${GREEN}$*${NC}
+    echo -e ${GREEN}$*${NC}
 }
 
 #============================================================================
@@ -16,25 +16,25 @@ export CODE_PATH=/home/jiayuanr/code/deva_L4T
 
 # need this after flashing the device.
 function dean_setup_l4t () {
-	ECHO_G "******************************************"
-	ECHO_G "******************************************"
-	ECHO_G ""
-	ECHO_G "1, setup the display, do it manually..."
-	ECHO_G ""
-	ECHO_G "******************************************"
-	ECHO_G "******************************************"
+    ECHO_G "******************************************"
+    ECHO_G "******************************************"
+    ECHO_G ""
+    ECHO_G "1, setup the display, do it manually..."
+    ECHO_G ""
+    ECHO_G "******************************************"
+    ECHO_G "******************************************"
 
-	ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
-	#sudo gedit /etc/ssh/sshd_config
+    ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
+    #sudo gedit /etc/ssh/sshd_config
     # #PermitRootLogin prohibit-password
     # PermitRootLogin yes
-	echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config
+    echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config
 
     ECHO_G "3, setup the psswd of the root, like: 'r'..."
     sudo passwd root
     systemctl restart sshd
 
-	# no step 4.
+    # no step 4.
 
     ECHO_G "5, save the driver version and backup the original lib..."
     ECHO_G "5.1, check the dirver version..."
@@ -47,23 +47,23 @@ function dean_setup_l4t () {
     mkdir ~/driver_backup
     sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* ~/driver_backup/.
 
-	# this is for ssh. scp still needs the passwd.
-	ECHO_G "6, ssh key setup..."
-	ssh-keygen
-	# on your host, you also need to do "chmod 700 ~/.ssh/authorized_keys"
-	cat ~/.ssh/id_rsa.pub | ssh ${HOST_NAME}@${HOST_IP} 'cat >> .ssh/authorized_keys'
+    # this is for ssh. scp still needs the passwd.
+    ECHO_G "6, ssh key setup..."
+    ssh-keygen
+    # on your host, you also need to do "chmod 700 ~/.ssh/authorized_keys"
+    cat ~/.ssh/id_rsa.pub | ssh ${HOST_NAME}@${HOST_IP} 'cat >> .ssh/authorized_keys'
 
-	ECHO_G "7, install something..."
-	sudo apt update
-	sudo dhclient # access the internet
-	sudo apt install sshfs -y # for mount the code.
+    ECHO_G "7, install something..."
+    sudo apt update
+    sudo dhclient # access the internet
+    sudo apt install sshfs -y # for mount the code.
 
     ECHO_G "first time setup done."
 }
 
 function dean_backup_l4t () {
-	# qt creator info
-	scp /home/nvidia/.config/QtProject/qtcreator/*.qws ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/
+    # qt creator info
+    scp /home/nvidia/.config/QtProject/qtcreator/*.qws ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/
 }
 
 # need this after reboot. seems there is an issue with auto mount.
@@ -73,7 +73,7 @@ function dean_mount_host () {
     sudo chmod a+r /etc/fuse.conf
     ECHO_G "adding the 'user_allow_other' to /etc/fuse.conf"
     #sudo gedit /etc/fuse.conf
-	echo 'user_allow_other' | sudo tee -a /etc/fuse.conf
+    echo 'user_allow_other' | sudo tee -a /etc/fuse.conf
 
     # the local folder name.
     mkdir ~/mount
@@ -84,9 +84,9 @@ function dean_mount_host () {
 }
 
 function dean_install_qtcreator () {
-	ECHO_G "installing qtcreator..."
+    ECHO_G "installing qtcreator..."
     # we need this script for qtcreator debug.
-	echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
+    echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
 
     sudo apt update
     sudo apt install qtcreator -y
@@ -97,7 +97,7 @@ function dean_install_qtcreator () {
     sleep 1 s
 
     ECHO_G "scp the qt creator qws files to device..."
-	# I don't want to write my host passwd here. type it.
+    # I don't want to write my host passwd here. type it.
     scp ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/
 
     ECHO_G "installing qtcreator done..."
@@ -106,7 +106,7 @@ function dean_install_qtcreator () {
 # after flashing the device.
 # source l4t/setupL4T.sh ; dean_source
 function dean_source () {
-	echo 'source /home/nvidia/l4t/setupL4T.sh' | tee -a /home/nvidia/.bashrc
+    echo 'source /home/nvidia/l4t/setupL4T.sh' | tee -a /home/nvidia/.bashrc
 }
 
 
