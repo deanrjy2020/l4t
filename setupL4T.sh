@@ -12,7 +12,7 @@ function ECHO_G () {
 #============================================================================
 export HOST_IP=172.17.173.154
 export HOST_NAME=jiayuanr
-export CODE_PATH=/home/jiayuanr/code/deva_L4T
+export CODE_PATH=/home/jiayuanr/code2/deva_l4t
 
 # need this after flashing the device.
 function dean_setup_l4t () {
@@ -36,6 +36,7 @@ function dean_setup_l4t () {
 
     # no step 4.
 
+    # probably no need the step 5.
     ECHO_G "5, save the driver version and backup the original lib..."
     ECHO_G "5.1, check the dirver version..."
     (cd /usr/lib/aarch64-linux-gnu/tegra ; ls -l libnvidia-* )
@@ -76,8 +77,8 @@ function dean_mount_host () {
     echo 'user_allow_other' | sudo tee -a /etc/fuse.conf
 
     # the local folder name.
-    mkdir ~/mount
-    #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/deva_L4T ~/mount
+    mkdir -p ~/mount
+    #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code2/deva_l4t ~/mount
     sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv ${HOST_NAME}@${HOST_IP}:${CODE_PATH} ~/mount
 
     ECHO_G "mounting host done..."
