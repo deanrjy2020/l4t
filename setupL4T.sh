@@ -58,6 +58,7 @@ function dean_setup_l4t () {
     sudo apt update
     sudo dhclient # access the internet
     sudo apt install sshfs -y # for mount the code.
+    sudo apt install curl -y # for downloading qt color scheme.
 
     ECHO_G "first time setup done."
 }
@@ -100,6 +101,10 @@ function dean_install_qtcreator () {
     ECHO_G "scp the qt creator qws files to device..."
     # I don't want to write my host passwd here. type it.
     scp ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/
+
+    # download the qt color scheme.
+    # https://github.com/renjiayuan1314/qtcreator-custom
+    curl https://raw.githubusercontent.com/busyluo/qtcreator-custom/master/setup.sh -sSf | sh
 
     ECHO_G "installing qtcreator done..."
 }
