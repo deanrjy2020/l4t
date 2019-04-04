@@ -60,6 +60,10 @@ function dean_setup_l4t () {
     sudo dhclient # access the internet
     sudo apt install sshfs -y # for mount the code.
     sudo apt install curl -y # for downloading qt color scheme.
+    # setup git-cola
+    sudo apt install git git-cola -y
+    git config --global user.email "renjiayuan1314@gmail.com"
+    git config --global user.name "Jiayuan Ren"
 
     ECHO_G "first time setup done."
 }
