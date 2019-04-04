@@ -36,7 +36,6 @@ function dean_setup_l4t () {
 
     # no step 4.
 
-    # probably no need the step 5.
     ECHO_G "5, save the driver version and backup the original lib..."
     ECHO_G "5.1, check the dirver version..."
     (cd /usr/lib/aarch64-linux-gnu/tegra ; ls -l libnvidia-* )
@@ -45,8 +44,10 @@ function dean_setup_l4t () {
     ECHO_G "5.3, dirver version saved..."
 
     ECHO_G "5.4, backup the dirver version..."
-    mkdir ~/driver_backup
-    sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* ~/driver_backup/.
+    mkdir -p ~/driver_backup/tegra
+    sudo cp /usr/lib/aarch64-linux-gnu/tegra/libnvidia-* ~/driver_backup/tegra/.
+    mkdir -p ~/driver_backup/tegra-egl
+    sudo cp /usr/lib/aarch64-linux-gnu/tegra-egl/* ~/driver_backup/tegra-egl/.
 
     # this is for ssh. scp still needs the passwd.
     ECHO_G "6, ssh key setup..."
