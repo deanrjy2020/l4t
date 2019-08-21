@@ -114,6 +114,16 @@ function dean_install_qtcreator () {
     ECHO_G "installing qtcreator done..."
 }
 
+function dean_switch_to_weston_3 () {
+    #sudo pkill -9 Xorg
+    sudo service gdm3 stop
+    #sudo modprobe tegra-udrm modeset=1 # this is for weston 6
+    sudo mkdir /tmp/xdg
+    sudo chmod 777 /tmp/xdg
+    sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2
+    sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/bin/weston-simple-egl
+}
+
 # after flashing the device.
 # source l4t/setupL4T.sh ; dean_source
 function dean_source () {
