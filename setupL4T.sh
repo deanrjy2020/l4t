@@ -12,7 +12,7 @@ function ECHO_G () {
 #============================================================================
 export HOST_IP=172.17.173.154
 export HOST_NAME=jiayuanr
-export CODE_PATH=/home/jiayuanr/code2/deva_l4t
+export CODE_PATH=/home/jiayuanr/code/deva_L4T
 
 # need this after flashing the device.
 function dean_setup_l4t () {
