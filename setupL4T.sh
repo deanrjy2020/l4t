@@ -115,7 +115,8 @@ function dean_install_qtcreator () {
 }
 
 function dean_switch_to_weston_3 () {
-    #sudo pkill -9 Xorg
+    # Ctrl + Alt + F3 (or something else), and then run this.
+    sudo pkill -9 Xorg
     sudo service gdm3 stop
     #sudo modprobe tegra-udrm modeset=1 # this is for weston 6
     sudo mkdir /tmp/xdg
