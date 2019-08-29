@@ -34,6 +34,7 @@ function dean_setup_l4t () {
     sudo passwd root
     systemctl restart sshd
 
+    # seems cannot connect from VNC client to Embedded-Linux, egnore below.
     ECHO_G "4, install the x11vnc..."
     sudo apt-get install x11vnc -y
     # set any passwd, hit: could be same as host Ubuntu.
