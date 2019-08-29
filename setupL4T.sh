@@ -34,7 +34,10 @@ function dean_setup_l4t () {
     sudo passwd root
     systemctl restart sshd
 
-    # no step 4.
+    ECHO_G "4, install the x11vnc..."
+    sudo apt-get install x11vnc -y
+    # set any passwd, hit: could be same as host Ubuntu.
+    x11vnc -storepasswd
 
     ECHO_G "5, save the driver version and backup the original lib..."
     ECHO_G "5.1, check the dirver version..."
