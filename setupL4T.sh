@@ -118,11 +118,11 @@ function dean_install_qtcreator () {
     ECHO_G "installing qtcreator done..."
 }
 
-function dean_switch_to_weston_3 () {
-    # Ctrl + Alt + F3 (or something else), and then run this.
+function dean_switch_to_weston () {
+    # Ctrl + Alt + F3 (or ssh or something else), and then run this.
     sudo pkill -9 Xorg
     sudo service gdm3 stop
-    #sudo modprobe tegra-udrm modeset=1 # this is for weston 6
+    sudo modprobe tegra-udrm modeset=1 # this is for weston 6
     sudo mkdir /tmp/xdg
     sudo chmod 777 /tmp/xdg
     sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2
