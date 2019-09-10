@@ -12,7 +12,7 @@ function ECHO_G () {
 #============================================================================
 export HOST_IP=172.17.173.154
 export HOST_NAME=jiayuanr
-export CODE_PATH=/home/jiayuanr/code/deva_L4T
+export CODE_PATH=/home/jiayuanr/code/L4T_TREE
 
 # need this after flashing the device.
 function dean_setup_l4t () {
@@ -88,7 +88,7 @@ function dean_mount_host () {
 
     # the local folder name.
     mkdir -p ~/mount
-    #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code2/deva_l4t ~/mount
+    #sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv jiayuanr@172.17.173.154:/home/jiayuanr/code/L4T_TREE ~/mount
     sshfs -o allow_other,idmap=user,reconnect,workaround=nodelaysrv ${HOST_NAME}@${HOST_IP}:${CODE_PATH} ~/mount
 
     ECHO_G "mounting host done..."
@@ -124,8 +124,9 @@ function dean_weston_prepare () {
     sudo pkill -9 Xorg
 
     sudo modprobe tegra-udrm modeset=1 # this is for weston 6
+    unset DISPLAY
     sudo mkdir /tmp/xdg
-    sudo chmod 777 /tmp/xdg
+    sudo chmod 700 /tmp/xdg
 
     # normal run
 
