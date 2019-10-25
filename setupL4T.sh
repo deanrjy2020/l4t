@@ -61,7 +61,7 @@ function dean_setup_l4t () {
 
     ECHO_G "7, install something..."
     sudo apt update
-    sudo dhclient # access the internet
+    sudo dhclient # to have the ip address and access the internet
     sudo apt install sshfs -y # for mount the code.
     sudo apt install curl -y # for downloading qt color scheme.
     # setup git-cola
@@ -120,27 +120,22 @@ function dean_install_qtcreator () {
 
 function dean_weston_prepare () {
     # Ctrl + Alt + F3 (or ssh or something else), and then run this.
-    sudo service gdm3 stop
-    sudo pkill -9 Xorg
+    sudo service gdm3 stop && sudo pkill -9 Xorg
 
-    sudo modprobe tegra-udrm modeset=1 # this is for weston 6
-    unset DISPLAY
-    sudo mkdir /tmp/xdg
-    sudo chmod 700 /tmp/xdg
+    sudo modprobe tegra-udrm modeset=1 && unset DISPLAY && sudo mkdir /tmp/xdg && sudo chmod 700 /tmp/xdg
 
     # normal run
-
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2
-
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2 --modules=/usr/lib/aarch64-linux-gnu/tegra/weston/weston-test.so
-
-    #--log=/home/nvidia/dean/log.txt
-    #--socket=test-text
+    # sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2 --modules=weston-test.so
+    # --log=/home/nvidia/dean/log.txt
+    # --socket=test-text
 
     # gdb debug
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg gdbserver :5039 weston --use-egldevice --tty=2 --modules=/usr/lib/aarch64-linux-gnu/tegra/weston/weston-test.so
+    # sudo XDG_RUNTIME_DIR=/tmp/xdg gdbserver :5039 weston --use-egldevice --tty=2 --modules=weston-test.so
 
     # sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/bin/weston-simple-egl
+    # sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/bin/bad_buffer.weston
+    # /usr/bin/assert-negative.test
+    # sudo ln -s /usr/lib/aarch64-linux-gnu/tegra/weston/matrix.test /usr/bin/matrix.test
 }
 
 # after flashing the device.
