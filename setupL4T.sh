@@ -24,15 +24,11 @@ function dean_setup_l4t () {
     ECHO_G "******************************************"
     ECHO_G "******************************************"
 
-    ECHO_G "2, allow root login. add the 'PermitRootLogin yes' in the file..."
+    ECHO_G "3, setup the psswd of the root, like: 'r'..."
     #sudo gedit /etc/ssh/sshd_config
     # #PermitRootLogin prohibit-password
     # PermitRootLogin yes
-    echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config
-
-    ECHO_G "3, setup the psswd of the root, like: 'r'..."
-    sudo passwd root
-    systemctl restart sshd
+    echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config && sudo passwd root && systemctl restart sshd
 
     # seems cannot connect from VNC client to Embedded-Linux, egnore below.
     ECHO_G "4, install the x11vnc..."
@@ -116,26 +112,6 @@ function dean_install_qtcreator () {
     curl https://raw.githubusercontent.com/busyluo/qtcreator-custom/master/setup.sh -sSf | sh
 
     ECHO_G "installing qtcreator done..."
-}
-
-function dean_weston_prepare () {
-    # Ctrl + Alt + F3 (or ssh or something else), and then run this.
-    sudo service gdm3 stop && sudo pkill -9 Xorg
-
-    sudo modprobe tegra-udrm modeset=1 && unset DISPLAY && sudo mkdir /tmp/xdg && sudo chmod 700 /tmp/xdg
-
-    # normal run
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg weston --use-egldevice --tty=2 --modules=weston-test.so
-    # --log=/home/nvidia/dean/log.txt
-    # --socket=test-text
-
-    # gdb debug
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg gdbserver :5039 weston --use-egldevice --tty=2 --modules=weston-test.so
-
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/bin/weston-simple-egl
-    # sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/bin/bad_buffer.weston
-    # /usr/bin/assert-negative.test
-    # sudo ln -s /usr/lib/aarch64-linux-gnu/tegra/weston/matrix.test /usr/bin/matrix.test
 }
 
 # after flashing the device.
