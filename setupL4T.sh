@@ -12,7 +12,8 @@ function ECHO_G () {
 #============================================================================
 export HOST_IP=172.17.173.154
 export HOST_NAME=jiayuanr
-export CODE_PATH=/home/jiayuanr/code/L4T_TREE
+# It needs to be a real dir, soft link doesn't work.
+export CODE_PATH=/home/jiayuanr/code/L4T_TREE4
 
 # need this after flashing the device.
 function dean_setup_l4t () {
@@ -70,7 +71,7 @@ function dean_setup_l4t () {
 
 function dean_backup_l4t () {
     # qt creator info
-    scp /home/nvidia/.config/QtProject/qtcreator/*.qws ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/
+    scp ${HOME}/.config/QtProject/qtcreator/*.qws ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/
 }
 
 # need this after reboot. seems there is an issue with auto mount.
@@ -93,7 +94,8 @@ function dean_mount_host () {
 function dean_install_qtcreator () {
     ECHO_G "installing qtcreator..."
     # we need this script for qtcreator debug.
-    echo set substitute-path ${CODE_PATH} /home/nvidia/mount > ~/qt.sh
+    # add "source ~/qt.sh" in the qt creator->tools->Debugger->GDB->Additional Startup Commands
+    echo set substitute-path ${CODE_PATH} ${HOME}/mount > ~/qt.sh
 
     sudo apt update
     sudo apt install qtcreator -y
@@ -105,7 +107,7 @@ function dean_install_qtcreator () {
 
     ECHO_G "scp the qt creator qws files to device..."
     # I don't want to write my host passwd here. type it.
-    scp ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws /home/nvidia/.config/QtProject/qtcreator/
+    scp ${HOST_NAME}@${HOST_IP}:/home/jiayuanr/bin/l4t_device_backup/*.qws ${HOME}/.config/QtProject/qtcreator/
 
     # download the qt color scheme.
     # https://github.com/renjiayuan1314/qtcreator-custom
@@ -117,7 +119,7 @@ function dean_install_qtcreator () {
 # after flashing the device.
 # source l4t/setupL4T.sh ; dean_source
 function dean_source () {
-    echo 'source /home/nvidia/l4t/setupL4T.sh' | tee -a /home/nvidia/.bashrc
+    echo 'source ${HOME}/l4t/setupL4T.sh' | tee -a ${HOME}/.bashrc
 }
 
 
