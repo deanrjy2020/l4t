@@ -29,7 +29,7 @@ function dean_setup_l4t () {
     #sudo gedit /etc/ssh/sshd_config
     # #PermitRootLogin prohibit-password
     # PermitRootLogin yes
-    echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config && sudo passwd root && systemctl restart sshd
+    echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config && sudo passwd root && sudo systemctl restart sshd
 
     # seems cannot connect from VNC client to Embedded-Linux, egnore below.
     ECHO_G "4, install the x11vnc..."
